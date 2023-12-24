@@ -36,6 +36,8 @@ public enum MISSIONTYPE {
 	DUVIRI_ENDLESS_7("Tier 7"),
 	DUVIRI_ENDLESS_8("Tier 8"),
 	DUVIRI_ENDLESS_9("Tier 9"),
+	MIRROR_DEFENSE("Mirror Defense"),
+	ALCHEMY("Alchemy"),
 	UNKNOWN("Unknown");
 
 	String name;
