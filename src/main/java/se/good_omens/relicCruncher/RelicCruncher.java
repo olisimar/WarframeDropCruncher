@@ -61,8 +61,10 @@ public final class RelicCruncher {
 	public ArrayList<ModDrops> findModdropsByName(String sought) {
 		ArrayList<ModDrops> toReturn = new ArrayList<>();
 		for(ModDrops mod : this.modData) {
-			if(mod.getName().toLowerCase().contains(sought.toLowerCase())) {
-				toReturn.add(mod);
+			if(mod != null) {
+				if (mod.getName().toLowerCase().contains(sought.toLowerCase())) {
+					toReturn.add(mod);
+				}
 			}
 		}
 		return toReturn;
@@ -99,7 +101,7 @@ public final class RelicCruncher {
 	public ArrayList<ModDrops> parseOutModsbyDrop( String fileName ) throws SAXException, FileNotFoundException {
 		ArrayList<ModDrops> toReturn = new ArrayList<ModDrops>();
 		try {
-			Node dummy = parseIndata(fileName, 10);
+			Node dummy = parseIndata(fileName, 11);
 			if(dummy != null) {
 				ModDrops drop = null;
 				for (int i = 0; i < dummy.getChildNodes().getLength(); i++) {
@@ -112,7 +114,9 @@ public final class RelicCruncher {
 						}
 					} else if(modData.getChildNodes().getLength() == 3) {
 						if (modData.getChildNodes().item(0).getNodeName().equalsIgnoreCase("td") && modData != null) {
-							drop.addDropper(modData);
+							if(drop != null) {
+								drop.addDropper(modData);
+							}
 						}
 					}
 				}
