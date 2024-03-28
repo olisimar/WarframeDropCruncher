@@ -213,7 +213,11 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                                 percentage = percentage +"0";
                             }
                             sb.append(percentage);
-                            sb.append("% on "+ reward.getRotation().getRotationName()+ " in " + reward.getMission().getMissionName() + " at " + reward.getMission().getRegion() + " (" + reward.getMission().getType().toString() + ")");
+                            if(reward.getRotation() == ROTATION.NONE) {
+                                sb.append("% in " + reward.getMission().getMissionName() + " at " + reward.getMission().getRegion() + " (" + reward.getMission().getType().toString() + ")");
+                            } else {
+                                sb.append("% on "+ reward.getRotation().getRotationName()+ " in " + reward.getMission().getMissionName() + " at " + reward.getMission().getRegion() + " (" + reward.getMission().getType().toString() + ")");
+                            }
                             sb.append(System.lineSeparator());
                         }
                     }
@@ -365,7 +369,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         }
         ScrollPane pane = new ScrollPane();
         Label info = new Label();
-        Insets ins = new Insets(20, 20, 20, 20);
+        // Insets ins = new Insets(20, 20, 20, 20);
         info.setFont(new javafx.scene.text.Font("Verdana", 14));
         if(sb.toString().isEmpty()) {
             info.setText("No mission had a drop chance above selected percentage.");
