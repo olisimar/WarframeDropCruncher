@@ -38,9 +38,10 @@ public enum MISSIONTYPE {
 	DUVIRI_ENDLESS_9("Tier 9"),
 	MIRROR_DEFENSE("Mirror Defense"),
 	ALCHEMY("Alchemy"),
+	ASCENSION("Ascension"),
 	UNKNOWN("Unknown");
 
-	String name;
+	final String name;
 	MISSIONTYPE(String name) {
 		this.name = name;
 	}
