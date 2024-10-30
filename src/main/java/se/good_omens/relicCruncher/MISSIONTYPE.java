@@ -39,6 +39,7 @@ public enum MISSIONTYPE {
 	MIRROR_DEFENSE("Mirror Defense"),
 	ALCHEMY("Alchemy"),
 	ASCENSION("Ascension"),
+	SHRINE_DEFENSE("Shrine Defense"),
 	UNKNOWN("Unknown");
 
 	final String name;
