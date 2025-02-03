@@ -1,6 +1,5 @@
 package se.good_omens.relicCruncher;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -35,12 +34,13 @@ public class WebDrops {
 
         return response.body().toString();
     }
-    public String getDropTableData(String urlToRead) throws IOException {
+    @SuppressWarnings("deprecation")
+	public String getDropTableData(String urlToRead) throws IOException {
         URL url;
         HttpURLConnection conn; // The actual connection to the web page
         BufferedReader rd; // Used to read results from the web page
         String line; // An individual line of the web page HTML
-        String result = ""; // A long string containing all the HTML
+        //String result = ""; // A long string containing all the HTML
         StringBuilder contentBuilder = new StringBuilder();
             url = new URL(urlToRead);
             conn = (HttpURLConnection) url.openConnection();

@@ -40,4 +40,12 @@ public class Relic {
 	public String getRelicName() {
 		return this.relicName;
 	}
+	
+	public REFINEMENT getRefinement() {
+		return this.refinement;
+	}
+	
+	public RARITY getRarity() {
+		return this.rarity;
+	}
 }

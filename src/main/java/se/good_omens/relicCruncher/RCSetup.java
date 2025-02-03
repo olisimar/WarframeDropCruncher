@@ -1,12 +1,11 @@
 package se.good_omens.relicCruncher;
 
-import org.xml.sax.SAXException;
-
-import javax.sound.sampled.AudioFormat;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.xml.sax.SAXException;
 
 public class RCSetup {
     private final String uri = "https://www.warframe.com/droptables";

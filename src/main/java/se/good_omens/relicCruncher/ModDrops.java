@@ -1,9 +1,6 @@
 package se.good_omens.relicCruncher;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 
 import org.w3c.dom.Node;
 
@@ -52,7 +49,8 @@ public class ModDrops {
         public String getName() { return this.name; }
         public float getSourceChance() { return this.sourceChance; }
         public float getDropChance() { return this.dropChance; }
-        public Float getActualChance() { return new Float( ((this.dropChance /100) * (this.sourceChance /100 )) * 100); }
+        @SuppressWarnings("removal")
+		public Float getActualChance() { return new Float( ((this.dropChance /100) * (this.sourceChance /100 )) * 100); }
 
         public ModSource(String name, float source, float drop) {
             this.name =  name;

@@ -1,8 +1,7 @@
 package se.good_omens.relicCruncher;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 import org.w3c.dom.Node;
 

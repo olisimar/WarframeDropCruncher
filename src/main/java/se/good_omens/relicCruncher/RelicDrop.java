@@ -9,7 +9,7 @@ public class RelicDrop implements Comparable<RelicDrop> {
     private Relic relic;
 
     public RelicDrop(String relicName, RARITY rarity, float percentage ) {
-        this.dropName = this.dropName;
+        this.dropName = relicName;
         this.rarity =  rarity;
         this.percentage = percentage;
     }

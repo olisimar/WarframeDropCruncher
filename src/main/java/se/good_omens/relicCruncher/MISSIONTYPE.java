@@ -40,6 +40,7 @@ public enum MISSIONTYPE {
 	ALCHEMY("Alchemy"),
 	ASCENSION("Ascension"),
 	SHRINE_DEFENSE("Shrine Defense"),
+	LEGACYTE_HARVEST("Legacyte Harvest"),
 	UNKNOWN("Unknown");
 
 	final String name;

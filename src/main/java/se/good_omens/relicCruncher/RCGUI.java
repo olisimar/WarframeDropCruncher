@@ -80,14 +80,14 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         searchButton.setPrefSize(100, 20);
         searchButton.setFont(new Font("Verdana", 11));
 
-        pane.setRowIndex(label, 0);
-        pane.setColumnSpan(label, 3);
-        pane.setColumnIndex(label, 0);
+        GridPane.setRowIndex(label, 0);
+        GridPane.setColumnSpan(label, 3);
+        GridPane.setColumnIndex(label, 0);
         pane.getChildren().add(label);
 
-        pane.setRowIndex(input, 0);
-        pane.setColumnSpan(input, 1);
-        pane.setColumnIndex(input, 3);
+        GridPane.setRowIndex(input, 0);
+        GridPane.setColumnSpan(input, 1);
+        GridPane.setColumnIndex(input, 3);
         pane.getChildren().add(input);
 
         /*
@@ -96,18 +96,18 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         pane.setColumnIndex(searchButton, 5);
         pane.getChildren().add(searchButton);
         */
-        pane.setRowIndex(spinner, 0);
-        pane.setColumnSpan(spinner, 1);
-        pane.setColumnIndex(spinner, 5);
+        GridPane.setRowIndex(spinner, 0);
+        GridPane.setColumnSpan(spinner, 1);
+        GridPane.setColumnIndex(spinner, 5);
         pane.getChildren().add(spinner);
 
         resultpane = new TabPane();
         resultpane.setPrefSize(900, 550);
         resultpane.setMinSize(900, 550);
         resultpane.getTabs().add(this.getEmptyTab());
-        pane.setRowIndex(resultpane, 1);
-        pane.setColumnSpan(resultpane, 3);
-        pane.setColumnIndex(resultpane, 0);
+        GridPane.setRowIndex(resultpane, 1);
+        GridPane.setColumnSpan(resultpane, 3);
+        GridPane.setColumnIndex(resultpane, 0);
         pane.getChildren().add(resultpane);
 
         Scene mainScene = new Scene(pane, 900, 600);
@@ -224,7 +224,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                 }
                 byte[] raw = sb.toString().getBytes();
                 String out = new String(raw, StandardCharsets.UTF_8);
-                relicInfo.setText(sb.toString());
+                relicInfo.setText(out.toString());
                 ScrollPane pane = new ScrollPane();
                 pane.setContent(relicInfo);
                 tab.setContent(pane);
@@ -240,7 +240,6 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                 relicSet.add(rd.getDropName() +" - "+ rd.getRelic().getRelicName());
             }
             ArrayList<String> relicList = new ArrayList<>(relicSet);
-            HashMap<String, ArrayList<MissionReward>> result = rcs.findRewardInMissions(soughtTerm);
             Collections.sort(relicList);
             if(!relicList.isEmpty()) {
                 for(String rw : relicList) {
@@ -326,7 +325,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         }
         ScrollPane pane = new ScrollPane();
         Label info = new Label();
-        Insets ins = new Insets(20, 20, 20, 20);
+        // Insets ins = new Insets(20, 20, 20, 20);
         info.setFont(new javafx.scene.text.Font("Verdana", 14));
         if(sb.toString().isEmpty()) {
             info.setText("No mission had a drop chance above selected percentage.");
