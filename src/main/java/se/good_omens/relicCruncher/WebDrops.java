@@ -34,7 +34,7 @@ public class WebDrops {
 
         return response.body().toString();
     }
-    @SuppressWarnings("deprecation")
+
 	public String getDropTableData(String urlToRead) throws IOException {
         URL url;
         HttpURLConnection conn; // The actual connection to the web page

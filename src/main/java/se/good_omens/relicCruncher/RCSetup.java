@@ -90,7 +90,7 @@ public class RCSetup {
         return toReturn;
     }
 
-    private void printRewards(ArrayList<MissionReward> rewards, int abovePercentage) {
+    public void printRewards(ArrayList<MissionReward> rewards, int abovePercentage) {
         if(rewards.size() != 0) {
             rewards.sort(null);
             for(MissionReward reward : rewards) {
