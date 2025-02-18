@@ -40,7 +40,6 @@ public class WebDrops {
         HttpURLConnection conn; // The actual connection to the web page
         BufferedReader rd; // Used to read results from the web page
         String line; // An individual line of the web page HTML
-        //String result = ""; // A long string containing all the HTML
         StringBuilder contentBuilder = new StringBuilder();
             url = new URL(urlToRead);
             conn = (HttpURLConnection) url.openConnection();

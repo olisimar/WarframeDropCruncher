@@ -1,33 +1,38 @@
 package se.good_omens.relicCruncher;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.scene.control.SpinnerValueFactory;
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
 public class RCGUI extends Application implements EventHandler<ActionEvent> {
 
     private static RCSetup rcs;
     Button searchButton;
-    TextField input;
+    ComboBox<String> input;
+    //TextField input;
     Spinner<Integer> spinner;
     TabPane resultpane;
 
@@ -56,12 +61,18 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         label.setMinSize(500, 20);
         label.setPrefSize(500, 20);
 
-        input = new TextField();
-        input.setTooltip(new Tooltip("Enter search text, press Search for results."));
+        input = new ComboBox<String>();
+        input.setTooltip(new Tooltip("Enter search text, press Enter for results."));
+        input.setEditable(true);
+        input.commitValue();
         input.setPrefSize(250, 20);
         input.setOnKeyPressed( event-> {
-            if(event.getCode()  == KeyCode.ENTER) {
-                if(!input.getText().trim().isEmpty()) {
+            if(event.getCode() == KeyCode.ENTER) {
+                if(input.getValue() != null) {
+                    input.commitValue();
+                    if(!input.getItems().contains(input.getValue())) {
+                        input.getItems().add(input.getValue());
+                    }
                     this.updateResultPane();
                 } else {
                     resultpane.getTabs().removeAll();
@@ -90,12 +101,6 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         GridPane.setColumnIndex(input, 3);
         pane.getChildren().add(input);
 
-        /*
-        pane.setRowIndex(searchButton, 0);
-        pane.setColumnSpan(searchButton, 2);
-        pane.setColumnIndex(searchButton, 5);
-        pane.getChildren().add(searchButton);
-        */
         GridPane.setRowIndex(spinner, 0);
         GridPane.setColumnSpan(spinner, 1);
         GridPane.setColumnIndex(spinner, 5);
@@ -134,8 +139,9 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         } else {
             sb.append("Welcome!" + System.lineSeparator() + System.lineSeparator());
         }
-        sb.append("Use the search in the upper left corner once you have entered the prime part" + System.lineSeparator());
-        sb.append("you wish to search for. Partial names will suffice which include the parts name."+ System.lineSeparator());
+        sb.append("Use the searchfield in the upper left corner. Once you have entered the prime part" + System.lineSeparator());
+        sb.append("you wish to search for - Press Enter. Partial names will suffice which include the"+ System.lineSeparator());
+        sb.append("parts name in order to produce a result for it."+ System.lineSeparator());
         sb.append("However if it is not farmable at the moment you will see this text again." + System.lineSeparator());
         sb.append("If another mission reward matches the sought term it will be added as well."+ System.lineSeparator());
         sb.append(System.lineSeparator());
@@ -157,7 +163,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        if (!input.getText().trim().isEmpty()) {
+        if (input.getValue() != null) {
             this.updateResultPane();
         } else {
             resultpane.getTabs().removeAll();
@@ -171,7 +177,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         HashMap<String, ArrayList<MissionReward>> regularDrops;
         ArrayList<ModDrops> modDrops;
 
-        String soughtTerm = input.getText().trim();
+        String soughtTerm = input.getValue().trim();
         int setPercentage = spinner.getValue().intValue();
 
         relicDrops = rcs.getWantedPartRelic(soughtTerm);
@@ -181,7 +187,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         resultpane.getTabs().removeAll();
         resultpane.getTabs().clear();
 
-        if(soughtTerm.equalsIgnoreCase("illindi")) {
+        if(soughtTerm.equalsIgnoreCase("illindi") || soughtTerm.equalsIgnoreCase("license")) {
             resultpane.getTabs().add(getEmptyTab("Made with a beer license, if you ever meet me you can buy me a beer."+ System.lineSeparator() +
                             "Aside that, don't be an asshole."+ System.lineSeparator() + System.lineSeparator() +
                             "This piece of code, such as it is, is meant to be free to use and no charging money for it, "+
