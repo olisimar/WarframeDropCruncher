@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,12 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -35,6 +38,10 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
     //TextField input;
     Spinner<Integer> spinner;
     TabPane resultpane;
+    RadioButton allButton;
+    RadioButton endlessButton;
+    RadioButton oneShotButton;
+    ToggleGroup missionTypeGroup;
 
     public RCGUI() {
     }
@@ -92,25 +99,63 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         searchButton.setFont(new Font("Verdana", 11));
 
         GridPane.setRowIndex(label, 0);
-        GridPane.setColumnSpan(label, 3);
+        GridPane.setColumnSpan(label, 5);
         GridPane.setColumnIndex(label, 0);
         pane.getChildren().add(label);
 
         GridPane.setRowIndex(input, 0);
         GridPane.setColumnSpan(input, 1);
-        GridPane.setColumnIndex(input, 3);
+        GridPane.setColumnIndex(input, 5);
         pane.getChildren().add(input);
 
         GridPane.setRowIndex(spinner, 0);
         GridPane.setColumnSpan(spinner, 1);
-        GridPane.setColumnIndex(spinner, 5);
+        GridPane.setColumnIndex(spinner, 6);
         pane.getChildren().add(spinner);
+        
+        
+        GridPane missionPane = new GridPane();
+        
+        Label missionTypeSelection = new Label("Desired mission types:  ");
+        missionTypeSelection.setAlignment(Pos.CENTER_RIGHT);
+        missionTypeSelection.setMinSize(500, 20);
+        missionTypeSelection.setPrefSize(500, 20);
+        GridPane.setRowIndex(missionTypeSelection, 0);
+        GridPane.setColumnSpan(missionTypeSelection, 6);
+        GridPane.setColumnIndex(missionTypeSelection, 0);
+        missionPane.getChildren().add(missionTypeSelection);
+        
+        missionTypeGroup = new ToggleGroup();
+        allButton = new RadioButton("All");
+        allButton.setSelected(true);
+        allButton.setToggleGroup(missionTypeGroup);
+        GridPane.setRowIndex(allButton, 0);
+        GridPane.setColumnSpan(allButton, 1);
+        GridPane.setColumnIndex(allButton, 6);
+        missionPane.getChildren().add(allButton);
+        endlessButton = new RadioButton("Endless");
+        endlessButton.setToggleGroup(missionTypeGroup);
+        GridPane.setRowIndex(endlessButton, 0);
+        GridPane.setColumnSpan(endlessButton, 1);
+        GridPane.setColumnIndex(endlessButton, 7);
+        missionPane.getChildren().add(endlessButton);
+        oneShotButton = new RadioButton("One Shot");
+        oneShotButton.setToggleGroup(missionTypeGroup);
+        GridPane.setRowIndex(oneShotButton, 0);
+        GridPane.setColumnSpan(oneShotButton, 1);
+        GridPane.setColumnIndex(oneShotButton, 8);
+        
+        missionPane.getChildren().add(oneShotButton);
+        GridPane.setRowIndex(missionPane, 1);
+        GridPane.setColumnSpan(missionPane, 9);
+        GridPane.setColumnIndex(missionPane, 0);
+        pane.getChildren().add(missionPane);
 
         resultpane = new TabPane();
         resultpane.setPrefSize(900, 550);
         resultpane.setMinSize(900, 550);
         resultpane.getTabs().add(this.getEmptyTab());
-        GridPane.setRowIndex(resultpane, 1);
+        GridPane.setRowIndex(resultpane, 2);
         GridPane.setColumnSpan(resultpane, 3);
         GridPane.setColumnIndex(resultpane, 0);
         pane.getChildren().add(resultpane);
@@ -178,6 +223,8 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         ArrayList<ModDrops> modDrops;
 
         String soughtTerm = input.getValue().trim();
+        Toggle selected = missionTypeGroup.getSelectedToggle();
+        
         int setPercentage = spinner.getValue().intValue();
 
         relicDrops = rcs.getWantedPartRelic(soughtTerm);
@@ -194,6 +241,14 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                             "even if you alter "+ System.lineSeparator() + "it in some way or other."+
                             "And no removing this license, adding to it and so on." + System.lineSeparator() +
                             System.lineSeparator() + "Enjoy, Illindi :)"+ System.lineSeparator()));
+        }
+        
+        if(selected == endlessButton) {
+        	relicDrops = this.removeUnwantedMissionTypes(relicDrops, true);
+        	regularDrops = this.removeUnwantedMissionTypes(regularDrops, true);
+        } else if(selected == oneShotButton) {
+        	relicDrops = this.removeUnwantedMissionTypes(relicDrops, false);
+        	regularDrops = this.removeUnwantedMissionTypes(regularDrops, false);
         }
 
         for (String dropName : relicDrops.keySet()) {
@@ -278,6 +333,28 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
             Tab noFarm = getEmptyTab("The sought term '"+ soughtTerm +"' produced no missions to farm.");
             resultpane.getTabs().add(noFarm);
         }
+    }
+    
+    private HashMap<String, ArrayList<MissionReward>> removeUnwantedMissionTypes(HashMap<String, ArrayList<MissionReward>> input, boolean keepEndless) {
+	    HashMap<String, ArrayList<MissionReward>> tmpRewards = new HashMap<String, ArrayList<MissionReward>>();
+		for(Entry<String, ArrayList<MissionReward>> missions : input.entrySet()) {
+			ArrayList<MissionReward> tmpMissions = new ArrayList<MissionReward>();
+			if(keepEndless) {
+				for(MissionReward reward : missions.getValue()) {
+					if(reward.getMission().getType().isEndless()) {
+						tmpMissions.add(reward);
+					}
+				}
+			} else {
+				for(MissionReward reward : missions.getValue()) {
+					if(!reward.getMission().getType().isEndless()) {
+						tmpMissions.add(reward);
+					}
+				}
+			}
+			tmpRewards.put(missions.getKey(), tmpMissions);
+		}
+		return tmpRewards;
     }
 
     private Tab generateModTab(ModDrops mod) {
