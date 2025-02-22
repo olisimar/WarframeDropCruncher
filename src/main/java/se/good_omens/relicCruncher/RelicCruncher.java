@@ -101,7 +101,7 @@ public final class RelicCruncher {
 	public ArrayList<ModDrops> parseOutModsbyDrop( String fileName ) throws SAXException, FileNotFoundException {
 		ArrayList<ModDrops> toReturn = new ArrayList<ModDrops>();
 		try {
-			Node dummy = parseIndata(fileName, 11);
+			Node dummy = parseIndata(fileName, 12);
 			if(dummy != null) {
 				ModDrops drop = null;
 				for (int i = 0; i < dummy.getChildNodes().getLength(); i++) {
@@ -246,6 +246,7 @@ public final class RelicCruncher {
 		return fileName;
 	}
 
+	@SuppressWarnings("exports")
 	public Node parseIndata(String fileName, int node) throws SAXException, IOException, ParserConfigurationException, FileNotFoundException {
 		DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
 		DocumentBuilder DB = DBF.newDocumentBuilder();

@@ -238,8 +238,8 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
             resultpane.getTabs().add(getEmptyTab("Made with a beer license, if you ever meet me you can buy me a beer."+ System.lineSeparator() +
                             "Aside that, don't be an asshole."+ System.lineSeparator() + System.lineSeparator() +
                             "This piece of code, such as it is, is meant to be free to use and no charging money for it, "+
-                            "even if you alter "+ System.lineSeparator() + "it in some way or other."+
-                            "And no removing this license, adding to it and so on." + System.lineSeparator() +
+                            "even if you alter "+ System.lineSeparator() + "it in some way or other. "+
+                            "No removing this license, adding to it and so on." + System.lineSeparator() +
                             System.lineSeparator() + "Enjoy, Illindi :)"+ System.lineSeparator()));
         }
         
@@ -315,6 +315,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                 resultpane.getTabs().add(noFarm);
             }
         }
+        
         if(!regularDrops.isEmpty()) {
             for(String sought : regularDrops.keySet()) {
                 Tab normalResults = generateTabWithRegularResults(regularDrops.get(sought), sought);
