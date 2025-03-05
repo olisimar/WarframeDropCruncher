@@ -38,7 +38,7 @@ public class RCSetup {
             System.out.println("Caught throwable, bad days." + t.getMessage());
             t.printStackTrace();
         }
-
+        
         if(rc == null) {
             System.out.println("RelicCruncher was null, something went wrong.");
             System.exit(0);

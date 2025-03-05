@@ -152,15 +152,15 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         pane.getChildren().add(missionPane);
 
         resultpane = new TabPane();
-        resultpane.setPrefSize(900, 550);
-        resultpane.setMinSize(900, 550);
+        resultpane.setPrefSize(1078, 750);
+        resultpane.setMinSize(1078, 750);
         resultpane.getTabs().add(this.getEmptyTab());
         GridPane.setRowIndex(resultpane, 2);
         GridPane.setColumnSpan(resultpane, 3);
         GridPane.setColumnIndex(resultpane, 0);
         pane.getChildren().add(resultpane);
 
-        Scene mainScene = new Scene(pane, 900, 600);
+        Scene mainScene = new Scene(pane, 1078, 800);
         primaryStage.setScene(mainScene);
         primaryStage.show();
         //System.out.println("Show was called...");
@@ -403,7 +403,7 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
                 } else if(parts[1].length() > 3) {
                     actualChance = parts[0] +"."+ parts[1].substring(0,3);
                 }
-                sb.append("giving actual odds at "+ actualChance +"% dropping from "+ source.getName() );
+                sb.append("giving actual odds at "+ actualChance +"% dropping from "+ new EnemyLocations().getEnemyLocation(source.getName()) );
                 sb.append(System.lineSeparator());
             }
         }
