@@ -18,7 +18,7 @@ public class EnemyLocations {
 		if(el != null) {
 			return enemyLocations.get(enemyName.toLowerCase()).toString();
 		} else {
-			return " in an Unknown Location.";
+			return " "+ enemyName +" in an Unknown Location.";
 		}
 	}
 	
@@ -824,7 +824,7 @@ public class EnemyLocations {
 		String planets = "";
 		
 		public EnemyLocation(String name, String missions, String tileSets, String planets) {
-			this.name = name.toLowerCase();
+			this.name = name;
 			this.missions = missions.trim();
 			this.tileSets = tileSets.trim();
 			this.planets = planets.trim();

@@ -65,8 +65,8 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         Label label = new Label();
         label.setText("Warframe Drop Finder - Search the prime, where does the parts drops the best?");
         label.setAlignment(Pos.CENTER);
-        label.setMinSize(500, 20);
-        label.setPrefSize(500, 20);
+        label.setMinSize(700, 20);
+        label.setPrefSize(700, 20);
 
         input = new ComboBox<String>();
         input.setTooltip(new Tooltip("Enter search text, press Enter for results."));
@@ -91,26 +91,22 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
 
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,100, 0);
         spinner = new Spinner<Integer>(valueFactory);
-        spinner.setPrefSize(60,20);
-
-        searchButton = new Button("Search");
-        searchButton.setOnAction(this);
-        searchButton.setPrefSize(100, 20);
-        searchButton.setFont(new Font("Verdana", 11));
+        spinner.setTooltip(new Tooltip("Set the percentage between 0 and 100, anything below the limit will not be shown."));
+        spinner.setPrefSize(70,20);
 
         GridPane.setRowIndex(label, 0);
-        GridPane.setColumnSpan(label, 5);
+        GridPane.setColumnSpan(label, 1);
         GridPane.setColumnIndex(label, 0);
         pane.getChildren().add(label);
 
         GridPane.setRowIndex(input, 0);
         GridPane.setColumnSpan(input, 1);
-        GridPane.setColumnIndex(input, 5);
+        GridPane.setColumnIndex(input, 6);
         pane.getChildren().add(input);
 
         GridPane.setRowIndex(spinner, 0);
         GridPane.setColumnSpan(spinner, 1);
-        GridPane.setColumnIndex(spinner, 6);
+        GridPane.setColumnIndex(spinner, 7);
         pane.getChildren().add(spinner);
         
         
@@ -118,10 +114,10 @@ public class RCGUI extends Application implements EventHandler<ActionEvent> {
         
         Label missionTypeSelection = new Label("Desired mission types:  ");
         missionTypeSelection.setAlignment(Pos.CENTER_RIGHT);
-        missionTypeSelection.setMinSize(500, 20);
-        missionTypeSelection.setPrefSize(500, 20);
+        missionTypeSelection.setMinSize(800, 25);
+        missionTypeSelection.setPrefSize(800, 25);
         GridPane.setRowIndex(missionTypeSelection, 0);
-        GridPane.setColumnSpan(missionTypeSelection, 6);
+        GridPane.setColumnSpan(missionTypeSelection, 1);
         GridPane.setColumnIndex(missionTypeSelection, 0);
         missionPane.getChildren().add(missionTypeSelection);
         
