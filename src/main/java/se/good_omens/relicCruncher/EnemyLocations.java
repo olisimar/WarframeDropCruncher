@@ -8,7 +8,6 @@ public class EnemyLocations {
 	public EnemyLocations() {
 		for(String lineData : rawData) {
 			String[] parts = lineData.split("\\;");
-			System.out.println(parts[0]);
 			enemyLocations.put(parts[0].toLowerCase().trim(), new EnemyLocation(parts[0], parts[1], parts[2], parts[3]));
 		}
 	}
